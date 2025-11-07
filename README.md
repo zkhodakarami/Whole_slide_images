@@ -70,7 +70,7 @@ for slide in DI_123456_ABC-01-LFB+CV DI_123456_ABC-02-LFB+CV; do
     
     # Find TIFF path
     SAMPLE_NUM=$(echo $slide | grep -oP 'DI_\K\d+')
-    TIFF="/mnt/hippogang/histology/irwin/archive/INDD${SAMPLE_NUM}/histo_raw/${slide}.tif"
+    TIFF="ROOT+/histo_raw/${slide}.tif"
     
     python quantify_lfb_in_regions.py \
         --slide "$TIFF" \
@@ -159,7 +159,7 @@ for json_file in ./regions/*.json; do
     slide_name=$(basename "$json_file" _regions.json)
     sample_num=$(echo "$slide_name" | grep -oP 'DI_\K\d+')
     
-    tiff="/mnt/hippogang/histology/irwin/archive/INDD${sample_num}/histo_raw/${slide_name}.tif"
+    tiff="ROOT+ /${slide_name}.tif"
     
     if [ -f "$tiff" ]; then
         python quantify_lfb_in_regions.py \
@@ -179,4 +179,3 @@ python analyze_results.py
 2. **batch_extract_regions.py** - Batch extraction
 3. **quantify_lfb_in_regions.py** - Quantify LFB in regions
 
-That's it! No PHAS, no database IDs needed. Just extract coordinates and quantify.
